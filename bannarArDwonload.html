@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Banner1</title>
+</head>
+<style>
+    .bannar {
+  background-color:rgba(206, 53, 53, 1);
+  text-align: center;
+  color:#fff;
+  padding-top:10em;
+  
+  margin: 0 auto;
+  padding:0px;
+}
+
+* { color:#fff; text-decoration: none;}
+.btn:link, .btn btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 10px;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s;
+    position: relative;
+}
+
+.btn-animated {
+    animation: moveInBottom .5s ease-out .75s;
+    animation-fill-mode: backwards;
+}
+.btn-white {
+    background-color: #fff;
+    color: #777;
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.divbutton{
+    padding-bottom: 10px;
+}
+</style>
+<body>
+    <div class="bannar" dir="rtl">
+            <h3 style="
+            padding-top: 5px;
+            color: #777;
+            background-color:  white;
+           
+        ">إبدأ عملك واحجز موقع ويب بثلاث خطوات</h3> 
+      
+            <h1>
+                    <a target="_blank" href="http://emadsh.com/" class="typewrite" data-period="2000" data-type='[ "1-اخبرنا عن فكرتك ", "2- إختر تصميمك  ", "3- شاهد موقعك" ]'>
+                      <span class="wrap"></span>
+                    </a>
+            </h1>
+        
+            <div class="divbutton">
+                <a target="_blank" href="http://emadsh.com/amazing-work/" class="btn btn-white btn-animated">معرض الأعمال</a>
+                <a target="_blank" href="" class="btn btn-white btn-animated">تصميمات مُذهلة </a>
+               <a target="_blank" href="http://emadsh.com/contact/" class="btn btn-white btn-animated">اتصل بنا</a>
+
+            </div>
+      </div>
+    <script>
+    var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
+    </script>
+</body>
+</html>
